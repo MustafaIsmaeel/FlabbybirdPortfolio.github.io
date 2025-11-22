@@ -1,61 +1,67 @@
-<!DOCTYPE html>
+<!-- ========== index.html ========== -->
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Flappy Bird — Portfolio Edition</title>
-<link rel="stylesheet" href="style.css" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mustafa — Game Dev Portfolio (Flappy Bird)</title>
+<link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-<header>
+<header class="site-header">
+<div class="inner">
+<h1 class="brand">Mustafa — Game Dev</h1>
 <nav>
-<h2 class="logo">FlappyBird Portfolio</h2>
-<ul>
-<li><a href="#game">Game</a></li>
-<li><a href="#features">Features</a></li>
-<li><a href="#about">About Project</a></li>
-</ul>
+<a href="#game">Game</a>
+<a href="#projects">Projects</a>
+<a href="#experience">Experience</a>
+<a href="#contact">Contact</a>
 </nav>
+</div>
 </header>
 
 
-<section id="hero">
-<h1>Flappy Bird — <span class="accent">Web Game</span></h1>
-<p>A full JavaScript Canvas game created for my portfolio.</p>
-<button id="playBtn">Play Now</button>
+<main>
+<section id="hero" class="hero">
+<div class="hero-inner">
+<h2>Flappy Bird — Portfolio Edition</h2>
+<p>Small, polished web game demonstrating physics, collision, responsive UI, and deploy-ready structure.</p>
+<div class="hero-actions">
+<a class="btn" href="#game">Play Now</a>
+<a class="btn ghost" href="#projects">See Projects</a>
+</div>
+</div>
+<img class="hero-art" src="assets/hero-bird.svg" alt="bird illustration"/>
 </section>
 
 
-<section id="game" class="game-section">
-<h2>Play the Game</h2>
-<p>Press SPACE or click/tap to flap.</p>
-<canvas id="gameCanvas" width="420" height="600"></canvas>
-
-
-<div class="controls">
-<button id="restartBtn">Restart</button>
-<label><input type="checkbox" id="debugToggle"> Show Hitboxes</label>
+<section id="game" class="panel">
+<div class="panel-inner">
+<div class="game-column">
+<div class="play-area">
+<canvas id="gameCanvas" width="420" height="700"></canvas>
+<div class="game-ui">
+<div class="scoreboard">Score: <span id="score">0</span></div>
+<button id="startBtn" class="btn">Start / Restart</button>
+</div>
+<div class="controls-note">Tap or click to flap. Use Spacebar on desktop.</div>
+</div>
 </div>
 
 
-<p class="score">Score: <span id="score">0</span></p>
-</section>
+<aside class="info-column">
+<h3>About this build</h3>
+<ul>
+<li>Engine: Vanilla JavaScript + HTML5 Canvas</li>
+<li>Responsive layout & mobile touch controls</li>
+<li>Highscore saved to <code>localStorage</code></li>
+<li>Debug mode (hitboxes) & basic sound FX</li>
+</ul>
 
 
-<section id="features">
-<h2>Game Features</h2>
-<div class="feature-grid">
-<div class="feature">Simple Physics (gravity, velocity)</div>
-<div class="feature">Procedural Pipes & Gaps</div>
-<div class="feature">Smooth Canvas Rendering</div>
-<div class="feature">Collision Detection</div>
-<div class="feature">Score Tracking</div>
-<div class="feature">Debug Hitbox Mode</div>
-</div>
-</section>
-
-
-<section id="about">
-<h2>About This Project</h2>
-<p>
+<h4>Assets included</h4>
+<ul>
+<li>assets/bird.svg — scalable bird art</li>
+<li>assets/pipe.svg — scalable pipe art</li>
+<li>assets/bg-layer.png — background parallax</li>
 </html>

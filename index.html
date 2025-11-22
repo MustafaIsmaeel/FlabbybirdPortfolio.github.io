@@ -1,22 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Flappy Bird — Portfolio</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Flappy Bird — Portfolio Edition</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div id="container">
-<h1>Flappy Bird</h1>
-<p class="info">Press <strong>Space</strong> or click/tap to flap. Score: <span id="score">0</span></p>
-<canvas id="game" width="480" height="640"></canvas>
+<header>
+<nav>
+<h2 class="logo">FlappyBird Portfolio</h2>
+<ul>
+<li><a href="#game">Game</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#about">About Project</a></li>
+</ul>
+</nav>
+</header>
+
+
+<section id="hero">
+<h1>Flappy Bird — <span class="accent">Web Game</span></h1>
+<p>A full JavaScript Canvas game created for my portfolio.</p>
+<button id="playBtn">Play Now</button>
+</section>
+
+
+<section id="game" class="game-section">
+<h2>Play the Game</h2>
+<p>Press SPACE or click/tap to flap.</p>
+<canvas id="gameCanvas" width="420" height="600"></canvas>
+
+
 <div class="controls">
-<button id="startBtn">Start / Restart</button>
-<label><input type="checkbox" id="showHitboxes"> Show hitboxes</label>
+<button id="restartBtn">Restart</button>
+<label><input type="checkbox" id="debugToggle"> Show Hitboxes</label>
 </div>
-<p class="footer">Built with HTML5 Canvas — Add to your portfolio</p>
+
+
+<p class="score">Score: <span id="score">0</span></p>
+</section>
+
+
+<section id="features">
+<h2>Game Features</h2>
+<div class="feature-grid">
+<div class="feature">Simple Physics (gravity, velocity)</div>
+<div class="feature">Procedural Pipes & Gaps</div>
+<div class="feature">Smooth Canvas Rendering</div>
+<div class="feature">Collision Detection</div>
+<div class="feature">Score Tracking</div>
+<div class="feature">Debug Hitbox Mode</div>
 </div>
-<script src="script.js"></script>
-</body>
+</section>
+
+
+<section id="about">
+<h2>About This Project</h2>
+<p>
 </html>

@@ -1,93 +1,105 @@
-// Flappy Bird — simple JS Canvas implementation
-}
-}
-}
-
-
-function rectIntersect(ax,ay,aw,ah, bx,by,bw,bh) {
-return ax < bx + bw && ax + aw > bx && ay < by + bh && ay + ah > by;
+<script>
+// Pipes
+function createPipe() {
+let gap = 140;
+let topHeight = Math.random() * (H - gap - 80) + 20;
+pipes.push({ x: W, top: topHeight, bottom: topHeight + gap });
 }
 
 
-function draw() {
-// sky
-ctx.clearRect(0,0,W,H);
+function drawPipes() {
+ctx.fillStyle = "green";
+pipes.forEach(p => {
+ctx.fillRect(p.x, 0, 50, p.top);
+ctx.fillRect(p.x, p.bottom, 50, H - p.bottom);
 
 
-// ground
-ctx.fillStyle = '#6ec06b';
-ctx.fillRect(0,H-80,W,80);
-
-
-// pipes
-ctx.fillStyle = '#2e8b57';
-for (let p of pipes) {
-const pipeW = 52;
-// top pipe
-ctx.fillRect(p.x, 0, pipeW, p.topHeight);
-// bottom pipe
-ctx.fillRect(p.x, p.bottomY, pipeW, H - p.bottomY - 80);
-// optional hitboxes
-if (showHitboxes.checked) {
-ctx.strokeStyle = 'red';
-ctx.strokeRect(p.x, 0, pipeW, p.topHeight);
-ctx.strokeRect(p.x, p.bottomY, pipeW, H - p.bottomY - 80);
+if (debugToggle.checked) {
+ctx.strokeStyle = "red";
+ctx.strokeRect(p.x, 0, 50, p.top);
+ctx.strokeRect(p.x, p.bottom, 50, H - p.bottom);
 }
+});
 }
+
+
+function updatePipes() {
+pipes.forEach(p => p.x -= 2.5);
+pipes = pipes.filter(p => p.x > -60);
+
+
+pipes.forEach(p => {
+if (!p.scored && p.x + 50 < bird.x) {
+score++;
+p.scored = true;
+scoreEl.textContent = score;
+}
+
+
+if (collides(bird, p)) endGame();
+});
+}
+
+
+// Collision
+function collides(b, p) {
+return (
+(b.x < p.x + 50 && b.x + b.w > p.x && b.y < p.top) ||
+(b.x < p.x + 50 && b.x + b.w > p.x && b.y + b.h > p.bottom)
+);
+}
+
+
+// Game Loop
+function gameLoop() {
+if (!gameRunning) return;
+
+
+frame++;
+ctx.clearRect(0, 0, W, H);
+
+
+if (frame % 90 === 0) createPipe();
+
+
+drawPipes();
+updatePipes();
 
 
 bird.draw();
+bird.update();
 
 
-if (gameState === 'menu') {
-ctx.fillStyle = 'rgba(255,255,255,0.9)';
-ctx.fillRect(W/2 - 140, H/2 - 60, 280, 120);
-ctx.fillStyle = '#000';
-ctx.textAlign = 'center'; ctx.font = '20px sans-serif';
-ctx.fillText('Click / Space to start', W/2, H/2 - 8);
-ctx.font = '14px sans-serif';
-ctx.fillText('Try to fly between the pipes', W/2, H/2 + 22);
+requestAnimationFrame(gameLoop);
 }
 
 
-if (gameState === 'over') {
-ctx.fillStyle = 'rgba(0,0,0,0.6)';
-ctx.fillRect(W/2 - 140, H/2 - 60, 280, 120);
-ctx.fillStyle = '#fff';
-ctx.textAlign = 'center'; ctx.font = '20px sans-serif';
-ctx.fillText('Game Over', W/2, H/2 - 8);
-ctx.font = '14px sans-serif';
-ctx.fillText('Press Start/Space to try again', W/2, H/2 + 22);
-}
-}
-
-
-function loop() {
-update();
-draw();
-requestAnimationFrame(loop);
+// Game Controls
+function startGame() {
+gameRunning = true;
+score = 0;
+scoreEl.textContent = score;
+pipes = [];
+bird.reset();
+frame = 0;
+gameLoop();
 }
 
 
-// input
-window.addEventListener('keydown', e => {
-if (e.code === 'Space') {
-e.preventDefault();
-if (gameState === 'menu') startGame();
-if (gameState === 'playing') bird.flap();
-if (gameState === 'over') startGame();
+function endGame() {
+gameRunning = false;
 }
-});
-window.addEventListener('mousedown', () => {
-if (gameState === 'menu') startGame();
-else if (gameState === 'playing') bird.flap();
-else if (gameState === 'over') startGame();
+
+
+restartBtn.addEventListener("click", startGame);
+playBtn.addEventListener("click", () => {
+document.getElementById("game").scrollIntoView({ behavior: "smooth" });
+setTimeout(startGame, 400);
 });
 
 
-startBtn.addEventListener('click', () => startGame());
-
-
-// start loop
-reset();
-loop();
+window.addEventListener("keydown", e => {
+if (e.code === "Space") bird.flap();
+});
+window.addEventListener("mousedown", () => bird.flap());
+</script>
